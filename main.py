@@ -12,9 +12,10 @@ buttons = []  # Список кнопок игрового поля
 # Счетчики побед
 score_x = 0
 score_o = 0
+score_draw = 0  # Счетчик ничьих
 
 # Метка для отображения счета
-score_label = tk.Label(window, text=f"X: {score_x} | O: {score_o}", font=("Arial", 14))
+score_label = tk.Label(window, text=f"X: {score_x} | O: {score_o} | Draws: {score_draw}", font=("Arial", 14))
 score_label.grid(row=3, column=0, columnspan=3)
 
 # Функция для проверки победителя
@@ -39,7 +40,7 @@ def check_winner():
 
 # Функция обработки нажатия на кнопку
 def on_click(row, col):
-    global current_player, score_x, score_o
+    global current_player, score_x, score_o, score_draw
 
     if buttons[row][col]['text'] != "":
         return
@@ -58,7 +59,9 @@ def on_click(row, col):
 
     # Проверка на ничью
     if all(buttons[i][j]['text'] != "" for i in range(3) for j in range(3)):
-        messagebox.showinfo("Game Over", f"Draw!\n\nScore:\nX: {score_x} | O: {score_o}")
+        score_draw += 1  # Увеличиваем счетчик ничьих
+        score_label.config(text=f"X: {score_x} | O: {score_o} | Draws: {score_draw}")
+        messagebox.showinfo("Game Over", f"Draw!\n\nScore:\nX: {score_x} | O: {score_o} | Draws: {score_draw}")
         reset_board()
         return
 
@@ -78,7 +81,8 @@ def reset_game():
     global score_x, score_o
     score_x = 0
     score_o = 0
-    score_label.config(text=f"X: {score_x} | O: {score_o}")
+    score_draw = 0  # Сбрасываем счетчик ничьих
+    score_label.config(text=f"X: {score_x} | O: {score_o} | Draws: {score_draw}")
     reset_board()
 
 # Создание игрового поля (3x3 кнопки)
