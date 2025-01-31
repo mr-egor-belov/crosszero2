@@ -51,6 +51,15 @@ def on_click(row, col):
     current_player = "0" if current_player == "X" else "X"
 
 
+# Функция для сброса игры
+def reset_game():
+    global current_player
+    current_player = "X"
+    for i in range(3):
+        for j in range(3):
+            buttons[i][j]["text"] = ""
+
+
 # Создание игрового поля (3x3 кнопки)
 for i in range(3):
     row = []
@@ -61,6 +70,10 @@ for i in range(3):
         btn.grid(row=i, column=j)  # Размещение кнопки в сетке окна
         row.append(btn)
     buttons.append(row)  # Добавление строки кнопок в общий список
+
+# Создание кнопки сброса игры
+reset_button = tk.Button(window, text="Сброс", font=("Arial", 14), command=reset_game)
+reset_button.grid(row=3, column=0, columnspan=3)  # Размещение кнопки сброса внизу
 
 # Запуск главного цикла программы
 window.mainloop()
