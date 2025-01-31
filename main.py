@@ -95,5 +95,5 @@ for i in range(3):
 reset_button = tk.Button(window, text="Reset Game", font=("Arial", 14), command=reset_game)
 reset_button.grid(row=5, column=0, columnspan=3)
 
-# Запуск главного цикла программы
+# Запуск главного цикла программы :)
 window.mainloop()
